@@ -14,7 +14,7 @@ export async function find({limit, page}) {
     return await collection.find().skip(skip).limit(limit).toArray()
 }
 
-export async function findOne(id, payload) {
+export async function findOne(id) {
     return await collection.findOne({_id: new ObjectId(id)});
 }
 

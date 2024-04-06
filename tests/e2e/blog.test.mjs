@@ -1,4 +1,4 @@
-import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it} from '@jest/globals'
 import supertest from 'supertest';
 
 import server from '../../src/server.mjs';
