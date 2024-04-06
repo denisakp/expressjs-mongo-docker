@@ -7,8 +7,8 @@ Express.js, a leading Node.js web application framework, with MongoDB, a strong 
 Docker. It is intended to demonstrate best practices, provide a robust project structure, and incorporate end-to-end
 tests to ensure that the application functions properly.
 
-
 ## Features
+
 - Express.js Setup: A ready-to-use server setup with Express.js.
 - MongoDB Integration: Pre-configured MongoDB connection for data persistence.
 - Blog Module: Full CRUD operations for blog posts.
@@ -16,11 +16,13 @@ tests to ensure that the application functions properly.
 - End-to-End Testing: Integrated E2E tests to ensure everything works as expected.
 
 ## Upcoming features
+
 - Postman Collections: For easy API testing.
 - Swagger Documentation: Accessible via Postman to facilitate API testing.
 - Git Tag Versioning: Planned for better version management.
 
 ## Prerequisites
+
 To get started with this project, you have two primary setup options based on your preferences and environment:
 
 **For Docker-Based Setup**:
@@ -44,6 +46,7 @@ or if you want to work with Node.js and MongoDB, the classic local setup may be 
 ## Getting started
 
 ### Docker-Based Setup
+
 1. Clone the project
    ```shell
    git clone https://github.com/denisakp/expressjs-mongo-docker.git
@@ -80,6 +83,7 @@ or if you want to work with Node.js and MongoDB, the classic local setup may be 
 
 
 ## Testing the API with Postman
+
 The easiest way to test the API is through the provided Postman collection. The collection can be imported into your 
 local Postman workspace. It describes each API resource clearly and allows for proper testing.
 
