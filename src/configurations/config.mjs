@@ -4,7 +4,7 @@ import joi from 'joi';
 const envSchema = joi
     .object()
     .keys({
-        NODE_ENV: joi.string().valid("development", "production").default('development'),
+        NODE_ENV: joi.string().valid("development", "test", "production").default('development'),
         APP_PORT: joi.number().default(3000),
         APP_HOST: joi.string().default('0.0.0.0'),
         MONGODB_HOST: joi.string().default('mongodb://localhost:27017/express'),
