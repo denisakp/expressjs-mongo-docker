@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [lts]
+        mongodb-version: ['7.0']
+    services:
+      mongo:
+        image: mongo:7.0-jammy
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v4
+        name: Git checkout
+
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm test
+        env:
+          CI: true
+          NODE_ENV: test
+          MONGODB_URI: mongodb://localhost:27017/express
