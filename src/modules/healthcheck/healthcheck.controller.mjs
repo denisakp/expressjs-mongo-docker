@@ -1,4 +1,4 @@
-import healthcheckService from "../services/healthcheck.service.mjs";
+import healthcheckService from "./healthcheck.service.mjs";
 
 export default function healthcheckHandler(req, res) {
     const data = healthcheckService()

@@ -1,7 +1,7 @@
-import { Router } from "express";
+import {Router} from "express";
 
 // project imports
-import healthcheckHandler from "../controllers/healthcheck.controller.mjs";
+import healthcheckHandler from "./healthcheck.controller.mjs";
 
 const healthcheckRouter = Router();
 

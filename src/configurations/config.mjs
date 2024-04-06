@@ -11,10 +11,10 @@ const envSchema = joi
     })
     .unknown();
 
-const { value, error } = await envSchema.validate(process.env);
+const {value, error} = await envSchema.validate(process.env);
 
-if(error)
-    console.error(error.details)
+if (error)
+    console.error(error.details);
 
 // exported application environment variable
 const applicationEnv = {

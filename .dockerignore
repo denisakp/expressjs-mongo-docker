@@ -2,8 +2,9 @@
 .gitignore
 .git/
 .idea/
-docker
+docker/
 node_modules/
+coverage/
 .env.example
 .env
 docker-compose.yml

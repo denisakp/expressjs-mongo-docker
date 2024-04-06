@@ -1,6 +1,6 @@
 function idInterceptorResponse(payload) {
     const transformObject = (obj) => {
-        const { _id, ...rest} = obj;
+        const {_id, ...rest} = obj;
 
         return {
             id: _id,
@@ -8,7 +8,7 @@ function idInterceptorResponse(payload) {
         }
     }
 
-    // if the payload is an array then we apply the transformation to each element
+    // if the payload is an array, then we apply the transformation to each element
     if (Array.isArray(payload))
         return payload.map(transformObject)
 
@@ -16,4 +16,4 @@ function idInterceptorResponse(payload) {
 
 }
 
-export default  idInterceptorResponse;
+export default idInterceptorResponse;

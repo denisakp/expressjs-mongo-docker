@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion, Db, Collection } from "mongodb";
+import {Collection, Db, MongoClient, ServerApiVersion} from "mongodb";
 
 // project imports
 import applicationEnv from "./config.mjs";
@@ -35,9 +35,9 @@ class MyDatabase {
      * @return {Promise<Db>} A promise that resolves to the MongoDB database instance
      */
     static async connect() {
-        if(!this.client) {
+        if (!this.client) {
             try {
-                this.client = new MongoClient(applicationEnv.mongodb_uri, { serverApi: ServerApiVersion.v1 });
+                this.client = new MongoClient(applicationEnv.mongodb_uri, {serverApi: ServerApiVersion.v1});
                 const connection = await this.client.connect();
                 this.db = connection.db("express");
                 console.info('connected to database')
@@ -55,7 +55,7 @@ class MyDatabase {
      * @return {Promise<Collection>} A promise that resolves to the MongoDB collection instance
      */
     static async getCollection() {
-        if(!this.collection) {
+        if (!this.collection) {
             const db = await this.connect();
             this.collection = db.collection("blog");
         }

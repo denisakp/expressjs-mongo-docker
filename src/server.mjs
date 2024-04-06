@@ -1,13 +1,12 @@
-import express, {json} from 'express';
+import express from 'express';
 import cors from 'cors';
 import compression from "compression";
 
 // project imports
 import applicationEnv from "./configurations/config.mjs";
-import routes from "./routes/index.mjs";
+import routes from "./router.mjs";
 import routeNotFoundMiddleware from "./middlewares/404-routes.middleware.mjs";
 import errorResponseMiddleware from "./middlewares/error-response.middleware.mjs";
-
 
 // express app
 const app = express();
@@ -25,9 +24,9 @@ app.use('/api', routes);
 app.use(routeNotFoundMiddleware);
 
 // express server
-const server = app.listen(applicationEnv.port, applicationEnv.host, () => {
-    console.info("server started on port http://%s:%d", applicationEnv.host, applicationEnv.port)
-});
+const server = app.listen(applicationEnv.port, applicationEnv.host);
+
+console.info("server started on port http://%s:%d", applicationEnv.host, applicationEnv.port)
 
 process.on("SIGTERM", () => {
     console.info('closing express server !')
@@ -41,3 +40,5 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason) => {
     console.error({name: `unhandledRejection - ${reason.name}`, message: reason.message,})
 });
+
+export default server;
