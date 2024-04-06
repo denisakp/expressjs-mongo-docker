@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:7.0-jammy
+    networks:
+      - express
+    volumes:
+      - $PWD/docker/mongo/init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - express
+    ports:
+      - '${APP_PORT:-3000}:3000'
+    environment:
+      MONGODB_HOST: mongodb://express:password@mongo:27017/express
+      NODE_ENV: production
+      APP_PORT: 3000
+    depends_on:
+      - mongo
+
+networks:
+  express:
+    driver: bridge
+
