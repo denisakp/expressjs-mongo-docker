@@ -32,20 +32,33 @@ class MyDatabase {
      * Connect to the MongoDB database. It uses a singleton pattern to ensure that
      * only one database connection is maintained throughout the application.
      * @static
-     * @return {Promise<Db>} A promise that resolves to the MongoDB database instance
+     * @return {Promise<MongoClient>}
      */
     static async connect() {
         if (!this.client) {
             try {
                 this.client = new MongoClient(applicationEnv.mongodb_uri, {serverApi: ServerApiVersion.v1});
-                const connection = await this.client.connect();
-                this.db = connection.db("express");
+                await this.client.connect();
                 console.info('connected to database')
             } catch (error) {
                 console.error("failed to connect to MongoDB: ", error.message);
+                throw error
             }
         }
-        return this.db;
+        return this.client;
+    }
+
+    /**
+     * Retrieves the MongoDB database instance.
+     * @static
+     * @returns {Promise<Db>}
+     */
+    static async getDB() {
+        if(!this.db) {
+            const client = await this.connect();
+            this.db = client.db("express");
+        }
+        return this.db
     }
 
     /**
@@ -56,10 +69,25 @@ class MyDatabase {
      */
     static async getCollection() {
         if (!this.collection) {
-            const db = await this.connect();
+            const db = await this.getDB();
             this.collection = db.collection("blog");
         }
         return this.collection;
+    }
+
+    /**
+     * Closes the current MongoDB connection, then resets the client, db, and collection
+     * @static
+     * @returns {Promise<void>}
+     */
+    static async close() {
+        if(this.client) {
+            await this.client.close();
+            this.client = null;
+            this.db = null;
+            this.collection = null;
+            console.info("database connection closed !")
+        }
     }
 }
 
