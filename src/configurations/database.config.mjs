@@ -54,7 +54,7 @@ class MyDatabase {
      * @returns {Promise<Db>}
      */
     static async getDB() {
-        if(!this.db) {
+        if (!this.db) {
             const client = await this.connect();
             this.db = client.db("express");
         }
@@ -81,7 +81,7 @@ class MyDatabase {
      * @returns {Promise<void>}
      */
     static async close() {
-        if(this.client) {
+        if (this.client) {
             await this.client.close();
             this.client = null;
             this.db = null;
