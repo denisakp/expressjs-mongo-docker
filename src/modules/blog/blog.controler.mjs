@@ -63,7 +63,7 @@ export async function updateBlogPostHandler(req, res, next) {
     //request body validation
     const {value, error} = await updateBlogSchema.validate(req.body);
 
-    // if validation fails return UNPROCESSABLE ENTITY HTTP error
+    // if validation fails to return UNPROCESSABLE ENTITY HTTP error
     if (error)
         return res.status(422).json(error.details);
 
@@ -88,7 +88,7 @@ export async function deleteBlogPostHandler(req, res, next) {
         const response = await remove(id);
 
         if (!response)
-            return res.status(400).json({message: `Blog with id ${id} not found`});
+            return res.status(404).json({message: `Blog with id ${id} not found`});
 
         return res.sendStatus(204);
 
