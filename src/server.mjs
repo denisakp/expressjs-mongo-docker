@@ -4,24 +4,25 @@ import compression from "compression";
 
 // project imports
 import applicationEnv from "./configurations/config.mjs";
-import routes from "./router.mjs";
+import addApplicationRoutes from "./router.mjs";
 import routeNotFoundMiddleware from "./middlewares/404-routes.middleware.mjs";
 import errorResponseMiddleware from "./middlewares/error-response.middleware.mjs";
 
 // express app
 const app = express();
 
+// express middlewares
+app.use(express.json())
+app.use(compression());
+app.use(cors());
+
 // express routers
-app.use(routes);
+addApplicationRoutes(app)
 
 // routes middleware
 app.use(routeNotFoundMiddleware);
-
-// express middlewares
-app.use(cors());
-app.use(express.json())
-app.use(compression());
 app.use(errorResponseMiddleware)
+
 
 // express server
 const server = app.listen(applicationEnv.port, applicationEnv.host);
