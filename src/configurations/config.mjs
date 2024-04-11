@@ -6,7 +6,6 @@ const envSchema = joi
     .keys({
         NODE_ENV: joi.string().valid("development", "test", "production").default('development'),
         APP_PORT: joi.number().default(3000),
-        APP_HOST: joi.string().default('0.0.0.0'),
         MONGODB_HOST: joi.string().default('mongodb://localhost:27017/express'),
     })
     .unknown();
@@ -20,7 +19,7 @@ if (error)
 const applicationEnv = {
     node_env: value.NODE_ENV,
     port: parseInt(value.APP_PORT),
-    host: value.APP_HOST,
+    host: '0.0.0.0',
     mongodb_uri: value.MONGODB_HOST,
 };
 
