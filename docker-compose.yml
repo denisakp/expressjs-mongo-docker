@@ -7,6 +7,7 @@ services:
       - express
     volumes:
       - $PWD/docker/mongo/init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo-data:/data/db
 
   app:
     build:
@@ -14,16 +15,33 @@ services:
       dockerfile: Dockerfile
     networks:
       - express
-    ports:
-      - '${APP_PORT:-3000}:3000'
     environment:
       MONGODB_HOST: mongodb://express:password@mongo:27017/express
-      NODE_ENV: production
-      APP_PORT: 3000
+      NODE_ENV: development
+    volumes:
+      - app-data:/app
     depends_on:
       - mongo
+
+  nginx:
+    image: nginx:stable-alpine3.17-slim
+    networks:
+      - express
+    ports:
+      - '${NGINX_PORT:-80}:80'
+    volumes:
+      - $PWD/docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx-logs:/var/logs/nginx
+    depends_on:
+      - app
 
 networks:
   express:
     driver: bridge
+
+volumes:
+  mongo-data:
+  app-data:
+  nginx-logs:
+
 

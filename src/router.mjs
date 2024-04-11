@@ -1,12 +1,10 @@
-import {Router} from "express";
-
 // project imports
 import blogRouter from "./modules/blog/blog.router.mjs";
-import healthcheckRouter from "./modules/healthcheck/healthcheck.router.mjs";
+import healthcheckHandler from "./modules/healthcheck/healthcheck.controller.mjs";
 
-const router = Router({mergeParams: true});
+function addApplicationRoutes(app) {
+    app.get('/', healthcheckHandler)
+    app.use('/api/blog', blogRouter);
+}
 
-router.use('/healthcheck', healthcheckRouter);
-router.use('/blog', blogRouter);
-
-export default router;
+export default addApplicationRoutes;

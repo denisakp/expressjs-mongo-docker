@@ -11,10 +11,7 @@ FROM base AS dependenices
 
 COPY package*.json ./
 
-RUN \
-  if [ -f package-lock.json ]; then npm install --omit=dev; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm install
 
 FROM dependenices AS prune
 
@@ -32,11 +29,9 @@ RUN addgroup -S vegeta && adduser -S vegeta -G vegeta
 USER vegeta
 
 ENV NODE_ENV production
-ENV APP_PORT 3000
-ENV APP_HOST "0.0.0.0"
 
 # expose container port
-EXPOSE $APP_PORT
+EXPOSE 3000
 
 # Set dumb-init as the entrypoint
 ENTRYPOINT ["dumb-init", "--"]
