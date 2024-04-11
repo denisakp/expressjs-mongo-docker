@@ -32,11 +32,9 @@ RUN addgroup -S vegeta && adduser -S vegeta -G vegeta
 USER vegeta
 
 ENV NODE_ENV production
-ENV APP_PORT 3000
-ENV APP_HOST "0.0.0.0"
 
 # expose container port
-EXPOSE $APP_PORT
+EXPOSE 3000
 
 # Set dumb-init as the entrypoint
 ENTRYPOINT ["dumb-init", "--"]
