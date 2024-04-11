@@ -11,17 +11,17 @@ import errorResponseMiddleware from "./middlewares/error-response.middleware.mjs
 // express app
 const app = express();
 
+// express routers
+app.use(routes);
+
+// routes middleware
+app.use(routeNotFoundMiddleware);
+
 // express middlewares
 app.use(cors());
 app.use(express.json())
 app.use(compression());
 app.use(errorResponseMiddleware)
-
-// express routers
-app.use('/api', routes);
-
-// routes middleware
-app.use(routeNotFoundMiddleware);
 
 // express server
 const server = app.listen(applicationEnv.port, applicationEnv.host);
